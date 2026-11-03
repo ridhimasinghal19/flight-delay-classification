@@ -1,6 +1,6 @@
 # Predicting Flight Arrival Delay with Six Classifiers
 
-Binary classification of whether a 2015 US domestic flight **arrived late**, built for
+Binary classification of whether a flight **arrived late**, built for
 a university data analytics assignment (Kaggle class competition).
 Six models are compared under one evaluation protocol: decision tree, random forest, KNN,
 SVM, neural network and CatBoost.
