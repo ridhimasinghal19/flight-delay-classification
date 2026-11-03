@@ -61,8 +61,8 @@ The course supplies three files (not included in this repository, see [`data/`](
 
 The attributes describe the route (origin/destination city and state), the time (`DATE`, actual
 `DEPARTURE_TIME`), the duration (`SCHEDULED_TIME`, `ELAPSED_TIME`, `AIR_TIME`), the landing
-(`WHEELS_ON`, `TAXI_IN`), `DISTANCE`, two status flags and the airline. The flights cover 2015,
-6 airlines, 265 origin and 268 destination cities.
+(`WHEELS_ON`, `TAXI_IN`), `DISTANCE`, two status flags and the airline. The flights involve
+6 airlines, 265 origin cities and 268 destination cities.
 
 ![Class balance and missing values](docs/figures/fig02_class_balance_missing.png)
 
