@@ -1,0 +1,23 @@
+# Course data and anything the notebooks write next to it (only the instructions are tracked)
+data/*
+!data/README.md
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# CatBoost training logs
+catboost_info/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
