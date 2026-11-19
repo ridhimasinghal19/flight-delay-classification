@@ -17,7 +17,7 @@ SVM, neural network and CatBoost.
 | Random forest | 0.8661 | 0.8234 | 0.7958 |
 | KNN | 0.8532 | 0.7938 | 0.7666 |
 | Decision tree | 0.8498 | 0.7885 | 0.7890 |
-| *Always predict "on time"* | *0.6717* | – | – |
+| *Always predict "on time"* | *0.6717* | - | - |
 
 \*Same model type rebuilt **without** any row-order feature (see below). These are different
 builds scored on different flights, so read them as a rough comparison between model types.
@@ -27,10 +27,10 @@ builds scored on different flights, so read them as a rough comparison between m
 1. **The best models lean on the row order of the data file.** The flights inside each day are
    stored in time order, and the models exploit that: 32 "row-order" features carry about
    42% of CatBoost's feature importance. If the rows are shuffled within each day, every
-   submitted model drops to **0.52–0.58 accuracy**, below the 0.6717 baseline. These models
+   submitted model drops to **0.52-0.58 accuracy**, below the 0.6717 baseline. These models
    score well on *this* file but cannot score a single flight on its own and are not a general
    flight-delay predictor. The attribute-only column is the fairer measure of what the flight
-   attributes alone give: about 0.77–0.80 accuracy.
+   attributes alone give: about 0.77-0.80 accuracy.
 2. **The task labels a delay that has almost happened.** `ELAPSED_TIME`, `AIR_TIME`,
    `WHEELS_ON` and `TAXI_IN` are only known at or near landing, and the scheduled departure
    time (hence the departure delay) is not in the data. These are not forecasts made before
@@ -74,7 +74,7 @@ files are missing **different** attributes, so missing values are repaired befor
 *Delay rate by departure hour (12.5% at 5 am to 61.1% at 11 pm), month and airline.*
 
 **The central difficulty.** Arrival delay equals departure delay plus the duration overrun
-(`ELAPSED_TIME − SCHEDULED_TIME`). The data provide the overrun but not the departure delay.
+(`ELAPSED_TIME - SCHEDULED_TIME`). The data provide the overrun but not the departure delay.
 
 ![Delay rate by duration overrun](docs/figures/fig04_duration_overrun.png)
 
@@ -122,7 +122,7 @@ recall and F1 are for the delayed class. Brackets are 95% bootstrap intervals.
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | CatBoost | **0.8751** [0.868, 0.882] | 0.855 | **0.746** | **0.797** | **0.873** | **0.935** | **0.0891** | **0.8441** |
 | Neural network | 0.8647 [0.857, 0.871] | 0.862 | 0.699 | 0.772 | 0.861 | 0.923 | 0.0964 | 0.8322 |
-| SVM | 0.8579 [0.851, 0.865] | 0.835 | 0.707 | 0.766 | 0.855 | 0.912 | – | 0.8295 |
+| SVM | 0.8579 [0.851, 0.865] | 0.835 | 0.707 | 0.766 | 0.855 | 0.912 | - | 0.8295 |
 | Random forest | 0.8661 [0.858, 0.873] | **0.882** | 0.683 | 0.770 | 0.861 | 0.926 | 0.0945 | 0.8234 |
 | KNN | 0.8532 [0.845, 0.861] | 0.861 | 0.659 | 0.747 | 0.847 | 0.902 | 0.1041 | 0.7938 |
 | Decision tree | 0.8498 [0.842, 0.857] | 0.868 | 0.639 | 0.736 | 0.843 | 0.897 | 0.1065 | 0.7885 |
@@ -141,7 +141,7 @@ above and as printed in notebook 04). The other five values match.*
 
 ### Validation, holdout and Kaggle side by side
 
-| Model | Validation | Holdout | Kaggle | Gap (holdout − Kaggle, points) | Rank holdout / Kaggle |
+| Model | Validation | Holdout | Kaggle | Gap (holdout - Kaggle, points) | Rank holdout / Kaggle |
 |---|---:|---:|---:|---:|:---:|
 | CatBoost | 0.8726 | 0.8751 | 0.8441 | 3.10 | 1 / 1 |
 | Neural network | 0.8617 | 0.8647 | 0.8322 | 3.25 | 3 / 2 |
@@ -164,7 +164,7 @@ Orange diamond: Kaggle. The row-order signal carries over to Kaggle only in part
 
 ![Shuffle control](docs/figures/fig10_shuffle_control.png)
 
-*Shuffling rows within each day collapses every submitted model to 0.52–0.58, below the
+*Shuffling rows within each day collapses every submitted model to 0.52-0.58, below the
 "always on time" line. Models built without row order did not change at all when shuffled.*
 
 ### What CatBoost relies on and where it errs
@@ -176,7 +176,7 @@ Orange diamond: Kaggle. The row-order signal carries over to Kaggle only in part
 ![CatBoost accuracy by group](docs/figures/fig08_catboost_accuracy_by_group.png)
 
 *CatBoost was right on 425 of 426 flights that took more than 15 minutes over schedule. Its
-weakest group is flights 0–5 minutes over (77.6%), where the outcome depends on how late the
+weakest group is flights 0-5 minutes over (77.6%), where the outcome depends on how late the
 flight left, the part the attributes do not contain.*
 
 ## Model settings
@@ -190,7 +190,7 @@ value). Build A and Build B are the two shared feature builds; the SVM uses its 
 | Decision tree | Build A | entropy, max depth 10, ≥ 50 flights per leaf | 0.570 | 4 | 0.8431 ± 0.0052 |
 | Random forest | Build A | 200 trees, max depth 14, ≥ 20 per leaf, 30% of features per split | 0.510 | 3 | 0.8612 ± 0.0041 |
 | KNN | Build B | k = 60, distance-weighted, Manhattan, 16 features | 0.455 | 9 | 0.8489 ± 0.0048 |
-| SVM | Focused | RBF, C = 1, γ = 0.03, 30 features, robust scaling | 0.490 | 12 screened, 3 shortlisted | – |
+| SVM | Focused | RBF, C = 1, γ = 0.03, 30 features, robust scaling | 0.490 | 12 screened, 3 shortlisted | - |
 | Neural network | Build A | layers 64-32, ReLU, L2 0.1, lr 0.001, batch 512, early stopping, 5 seeds averaged | 0.530 | earlier search | 0.8594 ± 0.0045 |
 | CatBoost | Build A | depth 7, 945 trees, lr 0.03, L2 leaf reg. 10, category interactions up to 2 | 0.485 | 3 | 0.8724 ± 0.0038 |
 
@@ -260,7 +260,7 @@ named in the notebooks' own install cells.
 
 ## References
 
-1. Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32.
+1. Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5-32.
 2. Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., and Gulin, A. (2018). CatBoost:
    unbiased boosting with categorical features. *NeurIPS 31*.
 3. Grinsztajn, L., Oyallon, E., and Varoquaux, G. (2022). Why do tree-based models still
